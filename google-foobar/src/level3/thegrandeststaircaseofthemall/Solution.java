@@ -1,4 +1,4 @@
-package thegrandeststaircaseofthemall;
+package level3.thegrandeststaircaseofthemall;
 
 public class Solution {
     static int solution(int n) {

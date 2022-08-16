@@ -1,4 +1,4 @@
-package thegrandeststaircaseofthemall;
+package level3.thegrandeststaircaseofthemall;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
