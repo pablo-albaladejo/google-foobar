@@ -384,9 +384,9 @@ public class Solution3 {
         public void print() {
             for (int i = 0; i < this.M; i++) {
                 for (int j = 0; j < this.N; j++) {
-                    //system.out.print(this.matrix.get(i).get(j).toString() + "  ");
+                    System.out.print(this.matrix.get(i).get(j).toString() + "  ");
                 }
-                //system.out.println();
+                System.out.println();
             }
         }
 

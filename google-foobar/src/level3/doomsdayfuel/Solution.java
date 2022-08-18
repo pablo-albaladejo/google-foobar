@@ -80,7 +80,7 @@ class Fraction {
 
     @Override
     public String toString() {
-        return this.num + "\\" + this.den; //String.format("%.10f",this.toDouble());
+        return this.num + "\\" + this.den;
     }
 }
 
@@ -281,8 +281,7 @@ public class Solution {
         Fraction[][] R = new Fraction[nonTerminalStates.length][terminalStates.length];
         Fraction[][] Q = new Fraction[nonTerminalStates.length][nonTerminalStates.length];
         for (int i = 0; i < nonTerminalStates.length; i++) {
-            int sum = IntStream.of(m[i]).sum();
-
+            int sum = IntStream.of(m[nonTerminalStates[i]]).sum();
             for (int j = 0; j < m.length; j++) {
                 Fraction prob = new Fraction(BigInteger.valueOf(m[nonTerminalStates[i]][j]), BigInteger.valueOf(sum)).reduce();
 
@@ -321,7 +320,6 @@ public class Solution {
         Matrix[] RQMatrix = getRQMatrix(m, terminalStates, nonTerminalStates);
         Matrix R = RQMatrix[0];
         Matrix Q = RQMatrix[1];
-
         Matrix I = new MatrixIdentity(nonTerminalStates.length);
         Matrix ImQ = I.sub(Q);
         Matrix F = ImQ.inverse();

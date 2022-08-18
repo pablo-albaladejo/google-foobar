@@ -186,4 +186,10 @@ class SolutionTestA {
 
         assertArrayEquals(result, Solution.getResult(FR));
     }
+    @Test
+    public void test0() {
+        Fraction a = new Fraction(BigInteger.valueOf(6397), BigInteger.valueOf(7500));
+        Fraction b = new Fraction(BigInteger.valueOf(4448119), BigInteger.valueOf(42952500));
+        assertEquals(0.7493743088295209, a.sub(b).toDouble());
+    }
 }
