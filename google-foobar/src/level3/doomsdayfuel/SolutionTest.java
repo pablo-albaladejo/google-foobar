@@ -1,199 +1,82 @@
 package level3.doomsdayfuel;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigInteger;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-class SolutionTest {
+public class SolutionTest {
+
+    @Test
+    public void test0(){
+        Fraction a = new Fraction(BigInteger.valueOf(6397),BigInteger.valueOf(7500));
+        Fraction b = new Fraction(BigInteger.valueOf(4448119),BigInteger.valueOf(42952500));
+        assertEquals(0.7493743088295209, a.sub(b).toDouble());
+    }
     @Test
     public void testCase1(){
-        int input[][] = {{0, 2, 1, 0, 0}, {0, 0, 0, 3, 4}, {0, 0, 0, 0, 0}, {0, 0, 0, 0,0}, {0, 0, 0, 0, 0}};
+        int input[][] = {{0, 2, 1, 0, 0}, {0, 0, 0, 3, 4}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}};
         int output[] = {7, 6, 8, 21};
-        assertArrayEquals (output, Solution.solution(input));
+        assertArrayEquals (Solution.solution(input), output);
     };
     @Test
     public void testCase2(){
-        int input[][] = {{0, 1, 0, 0, 0, 1}, {4, 0, 0, 3, 2, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}};
-        int output[] = {0, 3, 2, 9, 14};
-        assertArrayEquals (output, Solution.solution(input));
+        int input[][] = {{0, 2, 1, 0, 0}, {0, 0, 0, 3, 4}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}};
+        int output[] = {7, 6, 8, 21};
+        assertArrayEquals (Solution.solution(input), output);
     };
     @Test
-    public void gcd1(){
-        assertEquals(Fraction.gcd(54, 24),6);
-    }
-    @Test
-    public void gcd2(){
-        assertEquals(Fraction.gcd(-1, 2),1);
-    }
-    @Test
-    public void lcm1(){
-        assertEquals(42,Fraction.lcm(21, 6));
-    }
-    @Test
-    public void lcm2(){
-        assertEquals(2, Fraction.lcm(1, 2));
-    }
-    @Test
-    public void fractionSub1(){
-        Fraction a = new Fraction(3,21);
-        Fraction b = new Fraction(4,6);
-        Fraction sub = a.sub(b);
-        assertEquals(-22, sub.num);
-        assertEquals(42, sub.den);
-    }
-    @Test
-    public void fractionSub2(){
-        Fraction a = new Fraction(0,1);
-        Fraction b = new Fraction(1,2);
-        Fraction sub = a.sub(b);
-        assertEquals(-1,sub.num);
-        assertEquals(2, sub.den);
-    }
-    @Test
-    public void fractionSub3(){
-        Fraction a = new Fraction(11,10);
-        Fraction b = new Fraction(4,20);
-        Fraction sub = a.sub(b);
-        assertEquals(9,sub.num);
-        assertEquals(10, sub.den);
-    }
-    @Test
-    public void fractionMult1(){
-        Fraction a = new Fraction(1,1);
-        Fraction b = new Fraction(2,1);
-        Fraction sub = a.mult(b);
-        assertEquals(2, sub.num);
-        assertEquals(1, sub.den);
-    }
-    @Test
-    public void fractionMult2(){
-        Fraction a = new Fraction(-1,2);
-        Fraction b = new Fraction(20,2);
-        Fraction sub = a.mult(b);
-        assertEquals(-5, sub.num);
-        assertEquals(1, sub.den);
-    }
-    @Test
-    public void fractionDiv1(){
-        Fraction a = new Fraction(20,1);
-        Fraction b = new Fraction(2,1);
-        Fraction sub = a.div(b);
-        assertEquals(10, sub.num);
-        assertEquals(1, sub.den);
-    }
-    @Test
-    public void fractionDiv2(){
-        Fraction a = new Fraction(1,1);
-        Fraction b = new Fraction(2,1);
-        Fraction sub = a.div(b);
-        assertEquals(1, sub.num);
-        assertEquals(2, sub.den);
-    }
-    @Test
-    public void matrixMult1(){
-       Matrix a = new Matrix(new int[][]{{1,0,1},{2,1,1}, {0,1,1},{1,1,2}});
-       Matrix b = new Matrix(new int[][]{{1,2,1},{2,3,1},{4,2,2}});
-       Matrix c = new Matrix(new int[][]{{5,4,3},{8,9,5},{6,5,3},{11,9,6}});
-       assertArrayEquals(c.getArray(), a.mult(b).getArray());
-    }
-    @Test
-    public void matrixMult2(){
-        Matrix A = new Matrix(new Fraction[2][2]);
-        A.set(0,0, new Fraction(9,7));
-        A.set(0,1, new Fraction(9,14));
-        A.set(1,0, new Fraction(4,7));
-        A.set(1,1, new Fraction(9,7));
+    public void testCase3(){
+        int input[][] = {{1, 2, 3, 0, 0, 0}, {4, 5, 6, 0, 0, 0}, {7, 8, 9, 1, 0, 0}, {0, 0, 0, 0, 1, 2}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}};
+        int output[] = {1,2,3};
+        assertArrayEquals (Solution.solution(input), output);
+    };
 
-        Matrix B = new Matrix(new Fraction[2][4]);
-        B.set(0,0, new Fraction(0,1));
-        B.set(0,1, new Fraction(0,1));
-        B.set(0,2, new Fraction(0,1));
-        B.set(0,3, new Fraction(1,2));
-        B.set(1,0, new Fraction(0,1));
-        B.set(1,1, new Fraction(3,9));
-        B.set(1,2, new Fraction(2,9));
-        B.set(1,3, new Fraction(0,1));
-
-        Matrix C = new Matrix(new Fraction[2][4]);
-        C.set(0,0, new Fraction(0,1));
-        C.set(0,1, new Fraction(3,14));
-        C.set(0,2, new Fraction(1,7));
-        C.set(0,3, new Fraction(9,14));
-        C.set(1,0, new Fraction(0,1));
-        C.set(1,1, new Fraction(3,7));
-        C.set(1,2, new Fraction(2,7));
-        C.set(1,3, new Fraction(2,7));
-
-        assertArrayEquals(C.getArray(), A.mult(B).getArray());
-    }
     @Test
-    public void matrixMult3(){
-        Matrix A = new Matrix(new Fraction[2][2]);
-        A.set(0,0, new Fraction(4,1));
-        A.set(0,1, new Fraction(7,1));
-        A.set(1,0, new Fraction(2,1));
-        A.set(1,1, new Fraction(6,1));
+    public void testCase4(){
+        int input[][] = {{0}};
+        int output[] = {1,1};
+        assertArrayEquals (Solution.solution(input), output);
+    };
 
-        Matrix B = new Matrix(new Fraction[2][2]);
-        B.set(0,0, new Fraction(3,5));
-        B.set(0,1, new Fraction(-7,10));
-        B.set(1,0, new Fraction(-1,5));
-        B.set(1,1, new Fraction(2,5));
-
-        Matrix C = new MatrixIdentity(2);
-
-        assertArrayEquals(C.getArray(), A.mult(B).getArray());
-    }
     @Test
-    public void matrixInverse1(){
-        int input[][] = {{4,7},{2,6}};
-        Matrix A = new Matrix(input);
+    public void testCase5(){ //inverse
+        int input[][] = {{0, 0, 12, 0, 15, 0, 0, 0, 1, 8}, {0, 0, 60, 0, 0, 7, 13, 0, 0, 0}, {0, 15, 0, 8, 7, 0, 0, 1, 9, 0}, {23, 0, 0, 0, 0, 1, 0, 0, 0, 0}, {37, 35, 0, 0, 0, 0, 3, 21, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        int output[] = {1, 2, 3, 4, 5, 15};
+        assertArrayEquals (Solution.solution(input), output);
+    };
 
-        Matrix AI = A.inverse();
-        MatrixIdentity I = new MatrixIdentity(input.length);
-        assertArrayEquals(I.getArray(), A.mult(AI).getArray());
-    }
     @Test
-    public void matrixInverse2(){
-        int input[][] = {{5,7,9},{4,3,8},{7,5,6}};
-        Matrix A = new Matrix(input);
-        Matrix AI = A.inverse();
-        MatrixIdentity I = new MatrixIdentity(input.length);
-
-        assertArrayEquals(I.getArray(), A.mult(AI).getArray());
-    }
+    public void testCase6(){
+        int input[][] = {{ 0,  7,  0, 17,  0,  1,  0,  5,  0,  2}, { 0,  0, 29,  0, 28,  0,  3,  0, 16,  0}, { 0,  3,  0,  0,  0,  1,  0,  0,  0,  0}, {48,  0,  3,  0,  0,  0, 17,  0,  0,  0}, { 0,  6,  0,  0,  0,  1,  0,  0,  0,  0}, { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0}, { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0}, { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0}, { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0}, { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0}};
+        int output[] = {4, 5, 5, 4, 2, 20};
+        assertArrayEquals (Solution.solution(input), output);
+    };
     @Test
-    public void getResult1(){
-        Matrix FR = new Matrix(new Fraction[1][3]);
-        FR.set(0,0, new Fraction(7,21));
-        FR.set(0,1, new Fraction(3,21));
-        FR.set(0,2, new Fraction(8,21));
+    public void testCase7(){ //inverse
+        int input[][] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        int output[] = {1, 1, 1, 1, 1, 5};
+        assertArrayEquals (Solution.solution(input), output);
+    };
 
-        int[] result = new int[]{7, 3, 8, 21};
-
-        assertArrayEquals(result, Solution.getResult(FR));
-    }
     @Test
-    public void getResult2(){
-        Matrix FR = new Matrix(new Fraction[2][4]);
-        FR.set(0,0, new Fraction(0,1));
-        FR.set(0,1, new Fraction(3,14));
-        FR.set(0,2, new Fraction(1,7));
-        FR.set(0,3, new Fraction(9,14));
+    public void testCase8(){ //inverse
+        int input[][] = {{1, 1, 1, 0, 1, 0, 1, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 1, 1, 1, 0, 1, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 1, 0, 1, 1, 1, 0, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 1, 0, 1, 0, 1, 1, 1, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {1, 0, 1, 0, 1, 0, 1, 0, 1, 1}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        int output[] = {2, 1, 1, 1, 1, 6};
+        assertArrayEquals (Solution.solution(input), output);
+    };
 
-        int[] result = new int[]{0,3,2,9,14};
-
-        assertArrayEquals(result, Solution.getResult(FR));
-    }
     @Test
-    public void getResult3(){
-        Matrix FR = new Matrix(new Fraction[2][4]);
-        FR.set(0,0, new Fraction(0,1));
-        FR.set(0,1, new Fraction(6,28));
-        FR.set(0,2, new Fraction(2,14));
-        FR.set(0,3, new Fraction(18,28));
+    public void testCase9(){ //!!
+        int input[][] = {{0, 86, 61, 189, 0, 18, 12, 33, 66, 39}, {0, 0, 2, 0, 0, 1, 0, 0, 0, 0}, {15, 187, 0, 0, 18, 23, 0, 0, 0, 0}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        int output[] = {6, 44, 4, 11, 22, 13, 100};
+        assertArrayEquals (Solution.solution(input), output);
+    };
 
-        int[] result = new int[]{0,3,2,9,14};
-
-        assertArrayEquals(result, Solution.getResult(FR));
-    }
+    @Test
+    public void testCase10(){ //inverse
+        int input[][] = {{0, 0, 0, 0, 3, 5, 0, 0, 0, 2}, {0, 0, 4, 0, 0, 0, 1, 0, 0, 0}, {0, 0, 0, 4, 4, 0, 0, 0, 1, 1}, {13, 0, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 1, 8, 7, 0, 0, 0, 1, 3, 0}, {1, 7, 0, 0, 0, 0, 0, 2, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+        int output[] = {1, 1, 1, 2, 5};
+        assertArrayEquals (Solution.solution(input), output);
+    };
 }
