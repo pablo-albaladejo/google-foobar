@@ -5,7 +5,7 @@ import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SolutionTestA {
+class SolutionTestHelpers {
     @Test
     public void gcd1(){
         assertEquals(Fraction.gcd(BigInteger.valueOf(54), BigInteger.valueOf(24)),BigInteger.valueOf(6));
@@ -85,54 +85,7 @@ class SolutionTestA {
        Matrix c = new Matrix(new int[][]{{5,4,3},{8,9,5},{6,5,3},{11,9,6}});
        assertArrayEquals(c.getArray(), a.mult(b).getArray());
     }
-    /*@Test
-    public void matrixMult2(){
-        Matrix A = new Matrix(new Fraction[2][2]);
-        A.set(0,0, new Fraction(9,7));
-        A.set(0,1, new Fraction(9,14));
-        A.set(1,0, new Fraction(4,7));
-        A.set(1,1, new Fraction(9,7));
 
-        Matrix B = new Matrix(new Fraction[2][4]);
-        B.set(0,0, new Fraction(0,1));
-        B.set(0,1, new Fraction(0,1));
-        B.set(0,2, new Fraction(0,1));
-        B.set(0,3, new Fraction(1,2));
-        B.set(1,0, new Fraction(0,1));
-        B.set(1,1, new Fraction(3,9));
-        B.set(1,2, new Fraction(2,9));
-        B.set(1,3, new Fraction(0,1));
-
-        Matrix C = new Matrix(new Fraction[2][4]);
-        C.set(0,0, new Fraction(0,1));
-        C.set(0,1, new Fraction(3,14));
-        C.set(0,2, new Fraction(1,7));
-        C.set(0,3, new Fraction(9,14));
-        C.set(1,0, new Fraction(0,1));
-        C.set(1,1, new Fraction(3,7));
-        C.set(1,2, new Fraction(2,7));
-        C.set(1,3, new Fraction(2,7));
-
-        assertArrayEquals(C.getArray(), A.mult(B).getArray());
-    }
-    @Test
-    public void matrixMult3(){
-        Matrix A = new Matrix(new Fraction[2][2]);
-        A.set(0,0, new Fraction(4,1));
-        A.set(0,1, new Fraction(7,1));
-        A.set(1,0, new Fraction(2,1));
-        A.set(1,1, new Fraction(6,1));
-
-        Matrix B = new Matrix(new Fraction[2][2]);
-        B.set(0,0, new Fraction(3,5));
-        B.set(0,1, new Fraction(-7,10));
-        B.set(1,0, new Fraction(-1,5));
-        B.set(1,1, new Fraction(2,5));
-
-        Matrix C = new MatrixIdentity(2);
-
-        assertArrayEquals(C.getArray(), A.mult(B).getArray());
-    }*/
     @Test
     public void matrixInverse1(){
         int input[][] = {{4,7},{2,6}};
