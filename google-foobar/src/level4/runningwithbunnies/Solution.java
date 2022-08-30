@@ -1,13 +1,12 @@
 package level4.runningwithbunnies;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
+import java.util.Arrays;
 
 class Edge {
-    int origin;
-    int destination;
-    int weight;
+    private int origin;
+    private int destination;
+    private int weight;
 
     public Edge(int origin, int destination, int weight) {
         this.origin = origin;
@@ -24,39 +23,65 @@ class Edge {
     public String toString() {
         return "Edge(" + this.origin + ", " + this.destination + ", " + this.weight + ")";
     }
+
+    public int getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(int origin) {
+        this.origin = origin;
+    }
+
+    public int getDestination() {
+        return destination;
+    }
+
+    public void setDestination(int destination) {
+        this.destination = destination;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 }
 
-class Graph{
-    int[] vertices;
+class Graph {
+    int nVertices;
     ArrayList<Edge> edges;
 
-    public Graph(int[][] input){
-        this.vertices = getVertices(input);
-        this.edges = getEdges(input);
+    public Graph(int[][] input) {
+        this.nVertices = input[0].length;
+        this.edges = Helper.getEdges(input);
     }
 
-    public int[] bellmanFord(){
-        return new int[]{};
-    }
+    public int[] bellmanFord(int source) {
+        int[] distance = new int[this.nVertices];
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        distance[source] = 0;
 
-    public static int[] getVertices(int[][] input) {
-        return IntStream.rangeClosed(0, input[0].length - 1).toArray();
-    }
+        for (int i = 0; i < this.nVertices - 1; i++) {
+            for (int j = 0; j < this.edges.size(); j++) {
+                Edge edge = this.edges.get(j);
+                int u = edge.getOrigin();
+                int v = edge.getDestination();
+                int w = edge.getWeight();
 
-    public static ArrayList<Edge> getEdges(int[][] input) {
-        ArrayList<Edge> edges = new ArrayList<>();
-        for (int i = 0; i < input[0].length; i++) {
-            for (int j = 0; j < input[i].length; j++) {
-                if (i != j && input[i][j] != Integer.MAX_VALUE) edges.add(new Edge(i, j, input[i][j]));
+                if (distance[u] + w < distance[v])
+                    distance[v] = distance[u] + w;
             }
         }
-        return edges;
+        return distance;
     }
 }
 
 public class Solution {
     public static int[] solution(int[][] times, int times_limit) {
         Graph graph = new Graph(times);
+        int[] distance = graph.bellmanFord(0);
         return new int[]{0, 1};
     }
 }

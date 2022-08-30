@@ -10,14 +10,14 @@ public class SolutionTestHelpers {
     @Test
     public void getVertices() {
         int[][] matrix = {{0, 1, 1, 1, 1}, {1, 0, 1, 1, 1}, {1, 1, 0, 1, 1}, {1, 1, 1, 0, 1}, {1, 1, 1, 1, 0}};
-        int[] vertices = Graph.getVertices(matrix);
+        int[] vertices = Helper.getVertices(matrix);
         assertArrayEquals(new int[]{0, 1, 2, 3, 4}, vertices);
     }
 
     @Test
     public void getEdges() {
         int[][] matrix = {{0, 1, 1}, {2, 0, 2}, {3, 3, 0}};
-        ArrayList<Edge> edges = Graph.getEdges(matrix);
+        ArrayList<Edge> edges = Helper.getEdges(matrix);
 
         ArrayList<Edge> expected = new ArrayList<>();
         expected.add(new Edge(0, 1, 1));
@@ -38,7 +38,7 @@ public class SolutionTestHelpers {
                 {Integer.MAX_VALUE, 1, 5, 0, Integer.MAX_VALUE},
                 {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, -3, 0}
         };
-        ArrayList<Edge> edges = Graph.getEdges(matrix);
+        ArrayList<Edge> edges = Helper.getEdges(matrix);
 
         ArrayList<Edge> expected = new ArrayList<>();
         expected.add(new Edge(0, 1, -1));
@@ -63,9 +63,7 @@ public class SolutionTestHelpers {
                 {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, -3, 0}
         };
         Graph graph = new Graph(matrix);
-        int[] distances = graph.bellmanFord();
+        int[] distances = graph.bellmanFord(0);
         assertArrayEquals(new int[]{0, -1, 2, -2, 1}, distances);
     }
-
-
 }
