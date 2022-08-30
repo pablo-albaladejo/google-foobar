@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SolutionTestHelpers {
@@ -57,7 +56,7 @@ public class SolutionTestHelpers {
     }
 
     @Test
-    public void bellmanFord() {
+    public void bellmanFord0() {
         int[][] matrix = {
                 {0, -1, 4, Integer.MAX_VALUE, Integer.MAX_VALUE},
                 {Integer.MAX_VALUE, 0, 3, 2, 2},
@@ -65,9 +64,31 @@ public class SolutionTestHelpers {
                 {Integer.MAX_VALUE, 1, 5, 0, Integer.MAX_VALUE},
                 {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, -3, 0}
         };
-        Graph graph = new Graph(matrix);
-        int[] distances = graph.bellmanFord(0);
-        assertArrayEquals(new int[]{0, -1, 2, -2, 1}, distances);
+
+        ArrayList<Edge> edges = Helper.getEdges(matrix);
+        int nVertices = matrix[0].length;
+        int[] distance = Helper.bellmanFord(0, edges, nVertices);
+        assertArrayEquals(new int[]{0, -1, 2, -2, 1}, distance);
+    }
+
+    @Test
+    public void bellmanFord2() {
+        int[][] matrix = {{0, 2, 2, 2, -1}, {9, 0, 2, 2, -1}, {9, 3, 0, 2, -1}, {9, 3, 2, 0, -1}, {9, 3, 2, 2, 0}};
+
+        ArrayList<Edge> edges = Helper.getEdges(matrix);
+        int nVertices = matrix[0].length;
+        int[] distance = Helper.bellmanFord(0, edges, nVertices);
+        assertArrayEquals(new int[]{0, 2, 1, 1, -1}, distance);
+    }
+
+    @Test
+    public void bellmanFord3() {
+        int[][] matrix = {{0, 2, 2, 2, -1}, {9, 0, 2, 2, -1}, {9, 3, 0, 2, -1}, {9, 3, 2, 0, -1}, {9, 3, 2, 2, 0}};
+
+        ArrayList<Edge> edges = Helper.getEdges(matrix);
+        int nVertices = matrix[0].length;
+        int[] distance = Helper.bellmanFord(1, edges, nVertices);
+        assertArrayEquals(new int[]{8, 0, 1, 1, -1}, distance);
     }
 
     @Test
@@ -136,5 +157,27 @@ public class SolutionTestHelpers {
 
         ArrayList<ArrayList<Object>> result = Helper.permutations(2, input);
         assertEquals(expected.toString(), result.toString());
+    }
+
+    @Test
+    public void getDistances() {
+        int[][] matrix = {{0, 2, 2, 2, -1}, {9, 0, 2, 2, -1}, {9, 3, 0, 2, -1}, {9, 3, 2, 0, -1}, {9, 3, 2, 2, 0}};
+
+        Graph graph = new Graph(matrix);
+        int[][] distances = graph.getDistances();
+
+        int[][] expected = {{0, 2, 1, 1, -1}, {8, 0, 1, 1, -1}, {8, 2, 0, 1, -1}, {8, 2, 1, 0, -1}, {9, 3, 2, 2, 0}};
+        assertArrayEquals(expected, distances);
+    }
+
+    @Test
+    public void getTime() {
+        int[][] matrix = {{0, 2, 2, 2, -1}, {9, 0, 2, 2, -1}, {9, 3, 0, 2, -1}, {9, 3, 2, 0, -1}, {9, 3, 2, 2, 0}};
+        Graph graph = new Graph(matrix);
+
+        int[][] distances = graph.getDistances();
+
+        int time = Helper.getPathTime(distances, new int[]{2, 3});
+        assertEquals(0, time);
     }
 }
