@@ -2,6 +2,51 @@ package level4.runningwithbunnies;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.IntStream;
+
+class Helper {
+    public static int[] getVertices(int[][] input) {
+        return IntStream.rangeClosed(0, input[0].length - 1).toArray();
+    }
+
+    public static ArrayList<Edge> getEdges(int[][] input) {
+        ArrayList<Edge> edges = new ArrayList<>();
+        for (int i = 0; i < input[0].length; i++) {
+            for (int j = 0; j < input[0].length; j++) {
+                if (i != j && input[i][j] != Integer.MAX_VALUE) edges.add(new Edge(i, j, input[i][j]));
+            }
+        }
+        return edges;
+    }
+
+    public static ArrayList<Object> copyArrayList(ArrayList<Object> oldArrayList) {
+        ArrayList<Object> newArrayList = new ArrayList<>();
+        for (Object item : oldArrayList) newArrayList.add(item);
+        return newArrayList;
+    }
+
+    public static void permutationsRecursive(int k, ArrayList<Object> input, ArrayList<Object> current, ArrayList<ArrayList<Object>> acc) {
+        if (current.size() == k) {
+            acc.add(current);
+        } else {
+            for (int j = 0; j < input.size(); j++) {
+                ArrayList<Object> nextCurrent = copyArrayList(current);
+                nextCurrent.add(input.get(j));
+
+                ArrayList<Object> nextInput = copyArrayList(input);
+                nextInput.remove(j);
+                permutationsRecursive(k, nextInput, nextCurrent, acc);
+            }
+        }
+    }
+
+    public static ArrayList<ArrayList<Object>> permutations(int k, ArrayList<Object> input) {
+        ArrayList<ArrayList<Object>> result = new ArrayList<>();
+        ArrayList<Object> current = new ArrayList<>();
+        permutationsRecursive(k, input, current, result);
+        return result;
+    }
+}
 
 class Edge {
     private int origin;

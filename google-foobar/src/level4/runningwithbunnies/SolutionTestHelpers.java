@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SolutionTestHelpers {
     @Test
@@ -29,6 +31,7 @@ public class SolutionTestHelpers {
 
         assertIterableEquals(expected, edges);
     }
+
     @Test
     public void getEdgesInf() {
         int[][] matrix = {
@@ -65,5 +68,73 @@ public class SolutionTestHelpers {
         Graph graph = new Graph(matrix);
         int[] distances = graph.bellmanFord(0);
         assertArrayEquals(new int[]{0, -1, 2, -2, 1}, distances);
+    }
+
+    @Test
+    public void permutations1() {
+        ArrayList<Object> input = new ArrayList<>();
+        input.add(0);
+        input.add(1);
+        input.add(2);
+
+        ArrayList<List<Object>> expected = new ArrayList<>();
+
+        ArrayList<Object> p1 = new ArrayList<>();
+        p1.add(0);
+        expected.add(p1);
+
+        ArrayList<Object> p2 = new ArrayList<>();
+        p2.add(1);
+        expected.add(p2);
+
+        ArrayList<Object> p3 = new ArrayList<>();
+        p3.add(2);
+        expected.add(p3);
+
+        ArrayList<ArrayList<Object>> result = Helper.permutations(1, input);
+        assertEquals(expected.toString(), result.toString());
+    }
+
+    @Test
+    public void permutations2() {
+        ArrayList<Object> input = new ArrayList<>();
+        input.add(0);
+        input.add(1);
+        input.add(2);
+
+        ArrayList<List<Object>> expected = new ArrayList<>();
+
+        ArrayList<Object> p1 = new ArrayList<>();
+        p1.add(0);
+        p1.add(1);
+        expected.add(p1);
+
+        ArrayList<Object> p2 = new ArrayList<>();
+        p2.add(0);
+        p2.add(2);
+        expected.add(p2);
+
+        ArrayList<Object> p3 = new ArrayList<>();
+        p3.add(1);
+        p3.add(0);
+        expected.add(p3);
+
+        ArrayList<Object> p4 = new ArrayList<>();
+        p4.add(1);
+        p4.add(2);
+        expected.add(p4);
+
+        ArrayList<Object> p5 = new ArrayList<>();
+        p5.add(2);
+        p5.add(0);
+        expected.add(p5);
+
+        ArrayList<Object> p6 = new ArrayList<>();
+        p6.add(2);
+        p6.add(1);
+        expected.add(p6);
+
+        ArrayList<ArrayList<Object>> result = Helper.permutations(2, input);
+        assertEquals(expected.toString(), result.toString());
     }
 }
