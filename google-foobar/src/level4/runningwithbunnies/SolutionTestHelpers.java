@@ -160,7 +160,18 @@ public class SolutionTestHelpers {
     }
 
     @Test
-    public void getDistances() {
+    public void getDistances1() {
+        int[][] matrix = {{0, 1, 1, 1, 1}, {1, 0, 1, 1, 1}, {1, 1, 0, 1, 1}, {1, 1, 1, 0, 1}, {1, 1, 1, 1, 0}};
+
+        Graph graph = new Graph(matrix);
+        int[][] distances = graph.getDistances();
+
+        int[][] expected = {{0, 1, 1, 1, 1}, {1, 0, 1, 1, 1}, {1, 1, 0, 1, 1}, {1, 1, 1, 0, 1}, {1, 1, 1, 1, 00}};
+        assertArrayEquals(expected, distances);
+    }
+
+    @Test
+    public void getDistances2() {
         int[][] matrix = {{0, 2, 2, 2, -1}, {9, 0, 2, 2, -1}, {9, 3, 0, 2, -1}, {9, 3, 2, 0, -1}, {9, 3, 2, 2, 0}};
 
         Graph graph = new Graph(matrix);
@@ -177,7 +188,7 @@ public class SolutionTestHelpers {
 
         int[][] distances = graph.getDistances();
 
-        int time = Helper.getPathTime(distances, new int[]{2, 3});
-        assertEquals(0, time);
+        int time = Helper.getPathTime(distances, new int[]{1, 2});
+        assertEquals(1, time);
     }
 }
