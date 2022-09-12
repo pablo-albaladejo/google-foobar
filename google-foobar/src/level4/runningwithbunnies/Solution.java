@@ -168,6 +168,7 @@ class Graph {
 }
 
 public class Solution {
+    //https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
     public static int[] solution(int[][] times, int times_limit) {
         Graph graph = new Graph(times);
         int[][] distances = graph.getDistances();
