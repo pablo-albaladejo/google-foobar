@@ -1,54 +1,89 @@
 package level4.escapepods;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
 
 class Helper {
-    public static ArrayList<Edge> getEdges(int[] supersources, int[] supersinks, int[][] paths) {
-        ArrayList<Edge> edges = new ArrayList<>();
-        for (int i = 0; i < paths.length; i++) {
-            for (int j = 0; j < paths.length; j++) {
-                if (paths[i][j] > 0)
-                    edges.add(new Edge(i, j, paths[i][j]));
+    static public int getMaximumFlow(Graph graph) {
+        int s = graph.getNumberOfNodes() - 2;
+        int t = graph.getNumberOfNodes() - 1;
+
+        int maximumFlow = 0;
+
+        int delta;
+        int[] dist = new int[graph.getNumberOfNodes()];
+
+        while (dinicBfs(s, t, dist, graph)) {
+            int[] next = new int[graph.getNumberOfNodes()];
+            do {
+                delta = dinicDfs(s, t, next, dist, Integer.MAX_VALUE, graph);
+                maximumFlow += delta;
+            } while (delta > 0);
+        }
+
+        return maximumFlow;
+    }
+
+    static public boolean dinicBfs(int u, int v, int[] dist, Graph graph) {
+        Arrays.fill(dist, -1);
+        dist[u] = 0;
+
+        Deque<Integer> deque = new ArrayDeque<>(graph.getNumberOfNodes());
+        deque.offer(u);
+
+        while (!deque.isEmpty()) {
+            int node = deque.poll();
+            for (Edge edge : graph.getAdjuncts(node)) {
+                if (dist[edge.getDestination()] < 0 && edge.getCapacity() > edge.getFlow()) {
+                    deque.offer(edge.getDestination());
+                    dist[edge.getDestination()] = dist[node] + 1;
+                }
             }
         }
 
-        for (int i = 0; i < supersources.length; i++)
-            edges.add(new Edge(paths.length, supersources[i], Integer.MAX_VALUE));
+        return dist[v] >= 0;
+    }
 
-        for (int i = 0; i < supersinks.length; i++)
-            edges.add(new Edge(supersinks[i], paths.length + 1, Integer.MAX_VALUE));
+    static int dinicDfs(int u, int v, int[] next, int[] dist, int flow, Graph graph) {
+        if (u == v) return flow;
 
-        return edges;
+        int delta;
+        Edge edge;
+
+        for (; next[u] < graph.getAdjuncts(u).size(); next[u]++) {
+
+            edge = graph.getAdjuncts(u).get(next[u]);
+
+            if (dist[edge.getDestination()] == dist[u] + 1 && edge.getFlow() < edge.getCapacity()) {
+
+                delta = dinicDfs(edge.getDestination(), v, next, dist, Math.min(flow, edge.getCapacity() - edge.getFlow()), graph);
+
+                if (delta <= 0) continue;
+
+                edge.setFlow(edge.getFlow() + delta);
+                Edge reverse = graph.getAdjuncts(edge.getDestination()).get(edge.getReverse());
+                reverse.setFlow(reverse.getFlow()-delta);
+
+                return delta;
+            }
+        }
+        return 0;
     }
 }
 
 class Edge {
-    private int origin;
     private int destination;
-    private int weight;
+    private int flow;
+    private int capacity;
+    private int reverse;
 
-    public Edge(int origin, int destination, int weight) {
-        this.origin = origin;
+    public Edge(int destination, int flow, int capacity, int reverse) {
         this.destination = destination;
-        this.weight = weight;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return obj.toString().equals(this.toString());
-    }
-
-    @Override
-    public String toString() {
-        return "Edge(" + this.origin + ", " + this.destination + ", " + this.weight + ")";
-    }
-
-    public int getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(int origin) {
-        this.origin = origin;
+        this.flow = flow;
+        this.capacity = capacity;
+        this.reverse = reverse;
     }
 
     public int getDestination() {
@@ -59,32 +94,94 @@ class Edge {
         this.destination = destination;
     }
 
-    public int getWeight() {
-        return weight;
+    public int getFlow() {
+        return flow;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public void setFlow(int flow) {
+        this.flow = flow;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public int getReverse() {
+        return reverse;
+    }
+
+    public void setReverse(int reverse) {
+        this.reverse = reverse;
+    }
+
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "destination=" + destination +
+                ", flow=" + flow +
+                ", capacity=" + capacity +
+                ", reverse=" + reverse +
+                '}';
     }
 }
 
 class Graph {
-    int nVertices;
-    ArrayList<Edge> edges;
+    private int numberOfNodes;
+
+    private ArrayList<Edge>[] adjuncts;
 
     public Graph(int[] supersources, int[] supersinks, int[][] paths) {
-        this.nVertices = paths[0].length;
-        this.edges = Helper.getEdges(supersources, supersinks, paths);
+        this.numberOfNodes = paths.length + 2;
+
+        adjuncts = new ArrayList[this.numberOfNodes];
+        for (int i = 0; i < this.numberOfNodes; i++)
+            adjuncts[i] = new ArrayList<>();
+
+        for (int i = 0; i < this.numberOfNodes - 2; i++) {
+            for (int j = 0; j < this.numberOfNodes - 2; j++) {
+                if (paths[i][j] > 0) addNode(i, j, paths[i][j]);
+            }
+        }
+
+        for (int i = 0; i < supersources.length; i++)
+            addNode(this.numberOfNodes - 2, supersources[i], Integer.MAX_VALUE);
+
+        for (int i = 0; i < supersinks.length; i++)
+            addNode(supersinks[i], this.numberOfNodes - 1, Integer.MAX_VALUE);
+
+    }
+
+    public ArrayList<Edge> getAdjuncts(int node) {
+        return adjuncts[node];
+    }
+
+    public int getNumberOfNodes() {
+        return numberOfNodes;
+    }
+
+    public void addNode(int origin, int destination, int capacity) {
+        adjuncts[origin].add(new Edge(destination, 0, capacity, adjuncts[destination].size()));
+        adjuncts[destination].add(new Edge(origin, 0, 0, adjuncts[origin].size() - 1));
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        for (ArrayList<Edge> edges : adjuncts) {
+            str += "\n" + Arrays.toString(edges.toArray());
+        }
+        return str;
     }
 
 }
 
 public class Solution {
-    //https://en.wikipedia.org/wiki/Dinic%27s_algorithm
-    //https://en.wikipedia.org/wiki/Maximum_flow_problem
-
     public static int solution(int[] entrances, int[] exits, int[][] paths) {
-        Graph grap = new Graph(entrances, exits, paths);
-        return 0;
+        Graph flowNetwork = new Graph(entrances, exits, paths);
+        return Helper.getMaximumFlow(flowNetwork);
     }
 }
