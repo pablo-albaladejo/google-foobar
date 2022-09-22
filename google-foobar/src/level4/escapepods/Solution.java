@@ -16,9 +16,8 @@ class Helper {
         int[] dist = new int[graph.getNumberOfNodes()];
 
         while (dinicBfs(s, t, dist, graph)) {
-            int[] next = new int[graph.getNumberOfNodes()];
             do {
-                delta = dinicDfs(s, t, next, dist, Integer.MAX_VALUE, graph);
+                delta = dinicDfs(s, t, dist, Integer.MAX_VALUE, graph);
                 maximumFlow += delta;
             } while (delta > 0);
         }
@@ -46,27 +45,21 @@ class Helper {
         return dist[v] >= 0;
     }
 
-    static int dinicDfs(int u, int v, int[] next, int[] dist, int flow, Graph graph) {
+    static int dinicDfs(int u, int v, int[] dist, int flow, Graph graph) {
         if (u == v) return flow;
-
         int delta;
-        Edge edge;
 
-        for (; next[u] < graph.getAdjuncts(u).size(); next[u]++) {
-
-            edge = graph.getAdjuncts(u).get(next[u]);
+        for(Edge edge: graph.getAdjuncts(u)){
 
             if (dist[edge.getDestination()] == dist[u] + 1 && edge.getFlow() < edge.getCapacity()) {
+                delta = dinicDfs(edge.getDestination(), v, dist, Math.min(flow, edge.getCapacity() - edge.getFlow()), graph);
 
-                delta = dinicDfs(edge.getDestination(), v, next, dist, Math.min(flow, edge.getCapacity() - edge.getFlow()), graph);
-
-                if (delta <= 0) continue;
-
-                edge.setFlow(edge.getFlow() + delta);
-                Edge reverse = graph.getAdjuncts(edge.getDestination()).get(edge.getReverse());
-                reverse.setFlow(reverse.getFlow()-delta);
-
-                return delta;
+                if (delta > 0) {
+                    edge.setFlow(edge.getFlow() + delta);
+                    Edge reverse = graph.getAdjuncts(edge.getDestination()).get(edge.getReverse());
+                    reverse.setFlow(reverse.getFlow() - delta);
+                    return delta;
+                }
             }
         }
         return 0;
