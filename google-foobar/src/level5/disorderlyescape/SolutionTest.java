@@ -14,4 +14,5 @@ public class SolutionTest {
     public void testCase2() {
         assertEquals("7", Solution.solution(2,2,2));
     }
+
 }
