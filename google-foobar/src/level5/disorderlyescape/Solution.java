@@ -13,8 +13,23 @@ public class Solution {
                 configurations = configurations.add(countConfigs(w, h, s, i, j));
             }
         }
-        configurations = configurations.divide(BigInteger.valueOf(w * h));
-        return configurations.toString();
+        System.out.println("configurations " + configurations);
+
+        BigInteger result = configurations.divide(getSymmetries(w, h));
+        return result.toString();
+    }
+
+    private static BigInteger getSymmetries(int w, int h) {
+        return factorial(w).multiply(factorial(h));
+    }
+
+    private static BigInteger factorial(int n) {
+        BigInteger result = BigInteger.ONE;
+        for (int i = 2; i <= n; i++) {
+            result = result.multiply(BigInteger.valueOf(i));
+        }
+        System.out.println(result);
+        return result;
     }
 
     private static BigInteger countConfigs(int w, int h, int s, int x, int y) {
