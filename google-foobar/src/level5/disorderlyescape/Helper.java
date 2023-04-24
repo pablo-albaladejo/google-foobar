@@ -10,4 +10,15 @@ public class Helper {
         }
         return result;
     }
+
+    public static int gcd(int x, int y) {
+        int a = Math.abs(x);
+        int b = Math.abs(y);
+        while (b > 1) {
+            int c = a % b;
+            a = b;
+            b = c;
+        }
+        return b == 1 ? 1 : a;
+    }
 }

@@ -36,4 +36,29 @@ public class HelperTest {
         assertEquals("119622220865480194561963161495657715064383733760000000000", Helper.factorial(45).toString());
     }
 
+
+    @Test
+    public void gcd11() {
+        assertEquals(1, Helper.gcd(1,1));
+    }
+
+    @Test
+    public void gcd35() {
+        assertEquals(1, Helper.gcd(3,5));
+    }
+
+    @Test
+    public void gcd812() {
+        assertEquals(4, Helper.gcd(8,12));
+    }
+
+    @Test
+    public void gcd128() {
+        assertEquals(4, Helper.gcd(12,8));
+    }
+
+    @Test
+    public void gcd4818() {
+        assertEquals(6, Helper.gcd(48,18));
+    }
 }
