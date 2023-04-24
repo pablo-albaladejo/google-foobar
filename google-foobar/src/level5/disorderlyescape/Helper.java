@@ -1,6 +1,8 @@
 package level5.disorderlyescape;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Helper {
     public static BigInteger factorial(int n) {
@@ -20,5 +22,47 @@ public class Helper {
             b = c;
         }
         return b == 1 ? 1 : a;
+    }
+
+
+    public static List<List<Integer>> accelAsc(int n) {
+        List<List<Integer>> result = new ArrayList<>();
+        accelAscYield(n, result);
+        return result;
+    }
+
+    public static void accelAscYield(int n, List<List<Integer>> result) {
+        int[] a = new int[n + 1];
+        int k = 1;
+        int y = n - 1;
+        List<Integer> partition = new ArrayList<>();
+        while (k != 0) {
+            int x = a[k - 1] + 1;
+            k -= 1;
+            while (2 * x <= y) {
+                a[k] = x;
+                y -= x;
+                k += 1;
+            }
+            int l = k + 1;
+            while (x <= y) {
+                a[k] = x;
+                a[l] = y;
+                for (int i = 0; i <= k + 1; i++) {
+                    partition.add(a[i]);
+                }
+                result.add(new ArrayList<>(partition));
+                partition.clear();
+                x += 1;
+                y -= 1;
+            }
+            a[k] = x + y;
+            y = x + y - 1;
+            for (int i = 0; i <= k; i++) {
+                partition.add(a[i]);
+            }
+            result.add(new ArrayList<>(partition));
+            partition.clear();
+        }
     }
 }

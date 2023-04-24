@@ -2,6 +2,11 @@ package level5.disorderlyescape;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class HelperTest {
@@ -39,26 +44,52 @@ public class HelperTest {
 
     @Test
     public void gcd11() {
-        assertEquals(1, Helper.gcd(1,1));
+        assertEquals(1, Helper.gcd(1, 1));
     }
 
     @Test
     public void gcd35() {
-        assertEquals(1, Helper.gcd(3,5));
+        assertEquals(1, Helper.gcd(3, 5));
     }
 
     @Test
     public void gcd812() {
-        assertEquals(4, Helper.gcd(8,12));
+        assertEquals(4, Helper.gcd(8, 12));
     }
 
     @Test
     public void gcd128() {
-        assertEquals(4, Helper.gcd(12,8));
+        assertEquals(4, Helper.gcd(12, 8));
     }
 
     @Test
     public void gcd4818() {
-        assertEquals(6, Helper.gcd(48,18));
+        assertEquals(6, Helper.gcd(48, 18));
     }
+
+    @Test
+    public void partitions2() {
+        List<List<Integer>> actual = Helper.accelAsc(2);
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(1,1),
+                Arrays.asList(2)
+        );
+        assertEquals(expected.toString(), actual.toString());
+    }
+
+    @Test
+    public void partitions5() {
+        List<List<Integer>> actual = Helper.accelAsc(5);
+        List<List<Integer>> expected = Arrays.asList(
+                Arrays.asList(1,1,1,1,1),
+                Arrays.asList(1,1,1,2),
+                Arrays.asList(1,1,3),
+                Arrays.asList(1,2,2),
+                Arrays.asList(1,4),
+                Arrays.asList(2,3),
+                Arrays.asList(5)
+        );
+        assertEquals(expected.toString(), actual.toString());
+    }
+
 }
