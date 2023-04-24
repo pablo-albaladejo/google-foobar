@@ -24,7 +24,6 @@ public class Helper {
         return b == 1 ? 1 : a;
     }
 
-
     public static List<List<Integer>> accelAsc(int n) {
         List<List<Integer>> result = new ArrayList<>();
         accelAscYield(n, result);
@@ -64,5 +63,15 @@ public class Helper {
             result.add(new ArrayList<>(partition));
             partition.clear();
         }
+    }
+
+    public static Integer summation(List<Integer> listA, List<Integer> listB) {
+        int result = 0;
+        for (int i = 0; i < listA.size(); i++) {
+            for (int j = 0; j < listB.size(); j++) {
+                result += gcd(listA.get(i), listB.get(j));
+            }
+        }
+        return  result;
     }
 }

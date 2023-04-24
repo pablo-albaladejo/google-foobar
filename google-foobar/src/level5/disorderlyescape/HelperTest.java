@@ -2,11 +2,9 @@ package level5.disorderlyescape;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class HelperTest {
@@ -71,7 +69,7 @@ public class HelperTest {
     public void partitions2() {
         List<List<Integer>> actual = Helper.accelAsc(2);
         List<List<Integer>> expected = Arrays.asList(
-                Arrays.asList(1,1),
+                Arrays.asList(1, 1),
                 Arrays.asList(2)
         );
         assertEquals(expected.toString(), actual.toString());
@@ -81,15 +79,32 @@ public class HelperTest {
     public void partitions5() {
         List<List<Integer>> actual = Helper.accelAsc(5);
         List<List<Integer>> expected = Arrays.asList(
-                Arrays.asList(1,1,1,1,1),
-                Arrays.asList(1,1,1,2),
-                Arrays.asList(1,1,3),
-                Arrays.asList(1,2,2),
-                Arrays.asList(1,4),
-                Arrays.asList(2,3),
+                Arrays.asList(1, 1, 1, 1, 1),
+                Arrays.asList(1, 1, 1, 2),
+                Arrays.asList(1, 1, 3),
+                Arrays.asList(1, 2, 2),
+                Arrays.asList(1, 4),
+                Arrays.asList(2, 3),
                 Arrays.asList(5)
         );
         assertEquals(expected.toString(), actual.toString());
     }
 
+    @Test
+    public void summation112() {
+        int actual = Helper.summation(Arrays.asList(1, 1), Arrays.asList(2));
+        assertEquals(2, actual);
+    }
+
+    @Test
+    public void summation1111() {
+        int actual = Helper.summation(Arrays.asList(1, 1), Arrays.asList(1,1));
+        assertEquals(4, actual);
+    }
+
+    @Test
+    public void summation22() {
+        int actual = Helper.summation(Arrays.asList(2), Arrays.asList(2));
+        assertEquals(2, actual);
+    }
 }
