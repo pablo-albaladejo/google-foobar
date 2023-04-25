@@ -14,6 +14,7 @@ public class Helper {
         }
         return result;
     }
+
     public static int gcd(int x, int y) {
         int a = Math.abs(x);
         int b = Math.abs(y);
