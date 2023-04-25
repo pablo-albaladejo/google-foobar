@@ -14,15 +14,6 @@ public class Helper {
         }
         return result;
     }
-
-    public static Integer factorialInt(int n) {
-        Integer result = 1;
-        for (int i = 2; i <= n; i++) {
-            result *= i;
-        }
-        return result;
-    }
-
     public static int gcd(int x, int y) {
         int a = Math.abs(x);
         int b = Math.abs(y);
@@ -88,8 +79,8 @@ public class Helper {
     }
 
 
-    public static int cycleCount(List<Integer> partition, int n) {
-        int cc = factorialInt(n);
+    public static BigInteger cycleCount(List<Integer> partition, int n) {
+        BigInteger cc = factorial(n);
         Map<Integer, Integer> counter = new HashMap<>();
 
         for (Integer p : partition) {
@@ -99,7 +90,7 @@ public class Helper {
         for (Map.Entry<Integer, Integer> entry : counter.entrySet()) {
             int a = entry.getKey();
             int b = entry.getValue();
-            cc /= (int) Math.pow(a, b) * factorialInt(b);
+            cc = cc.divide(BigInteger.valueOf(a).pow(b).multiply(factorial(b)));
         }
         return cc;
     }

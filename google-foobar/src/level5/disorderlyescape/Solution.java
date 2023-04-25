@@ -9,18 +9,17 @@ public class Solution {
         BigInteger grid = BigInteger.ZERO;
         BigInteger modG = Helper.getSymmetries(w, h);
 
-        List<List<Integer>> rowPermutations = Helper.accelAsc(h);
-        List<List<Integer>> columnPermutations = Helper.accelAsc(w);
+        List<List<Integer>> rowPermutations = Helper.accelAsc(w);
+        List<List<Integer>> columnPermutations = Helper.accelAsc(h);
 
         for (List<Integer> r : rowPermutations) {
             for (List<Integer> c : columnPermutations) {
                 int exp = Helper.expSummation(r, c);
-                int m = Helper.cycleCount(r, w) * Helper.cycleCount(c, h);
-                grid = grid.add(BigInteger.valueOf(m * (int)Math.pow(s,exp)));
+                BigInteger m = Helper.cycleCount(r, w).multiply(Helper.cycleCount(c, h));
+                grid = grid.add(BigInteger.valueOf(s).pow(exp).multiply(m));
             }
         }
-        System.out.println("num " + grid);
-        System.out.println("dem " + modG);
+
         BigInteger result = grid.divide(modG);
         return result.toString();
     }
