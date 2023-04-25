@@ -91,20 +91,22 @@ public class HelperTest {
     }
 
     @Test
-    public void summation112() {
-        int actual = Helper.summation(Arrays.asList(1, 1), Arrays.asList(2));
+    public void expSummation112() {
+        int actual = Helper.expSummation(Arrays.asList(1, 1), Arrays.asList(2));
         assertEquals(2, actual);
     }
 
     @Test
-    public void summation1111() {
-        int actual = Helper.summation(Arrays.asList(1, 1), Arrays.asList(1,1));
+    public void expSummation1111() {
+        int actual = Helper.expSummation(Arrays.asList(1, 1), Arrays.asList(1,1));
         assertEquals(4, actual);
     }
 
     @Test
-    public void summation22() {
-        int actual = Helper.summation(Arrays.asList(2), Arrays.asList(2));
+    public void expSummation22() {
+        int actual = Helper.expSummation(Arrays.asList(2), Arrays.asList(2));
         assertEquals(2, actual);
     }
+
+
 }

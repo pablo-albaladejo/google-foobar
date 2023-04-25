@@ -2,17 +2,27 @@ package level5.disorderlyescape;
 
 import org.junit.jupiter.api.Test;
 
+
 import static org.junit.Assert.assertEquals;
 
 public class SolutionTest {
     @Test
-    public void testCase1() {
+    public void testCase234() {
         assertEquals("430", Solution.solution(2, 3, 4));
     }
 
     @Test
-    public void testCase2() {
+    public void testCase222() {
+        //28
+        //4
         assertEquals("7", Solution.solution(2, 2, 2));
+    }
+
+    @Test
+    public void testCase333() {
+        //26568
+        //36
+        assertEquals("738", Solution.solution(3,3,3));
     }
 
     @Test
@@ -47,10 +57,4 @@ public class SolutionTest {
         assertEquals("97195340925396730736950973830781340249131679073592360856141700148734207997877978005419735822878768821088343977969209139721682171487959967012286474628978470487193051591840", Solution.solution(12,12,20));
     }
 
-    @Test
-    public void testCase9() {
-        //26568
-        //36
-        assertEquals("738", Solution.solution(3,3,3));
-    }
 }

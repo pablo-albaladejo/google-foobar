@@ -2,13 +2,23 @@ package level5.disorderlyescape;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Helper {
     public static BigInteger factorial(int n) {
         BigInteger result = BigInteger.ONE;
         for (int i = 2; i <= n; i++) {
             result = result.multiply(BigInteger.valueOf(i));
+        }
+        return result;
+    }
+
+    public static Integer factorialInt(int n) {
+        Integer result = 1;
+        for (int i = 2; i <= n; i++) {
+            result *= i;
         }
         return result;
     }
@@ -65,13 +75,37 @@ public class Helper {
         }
     }
 
-    public static Integer summation(List<Integer> listA, List<Integer> listB) {
+    public static Integer expSummation(List<Integer> listA, List<Integer> listB) {
         int result = 0;
-        for (int i = 0; i < listA.size(); i++) {
-            for (int j = 0; j < listB.size(); j++) {
-                result += gcd(listA.get(i), listB.get(j));
+
+        for (Integer i : listA) {
+            for (Integer j : listB) {
+                result += gcd(i, j);
             }
         }
-        return  result;
+
+        return result;
     }
+
+
+    public static int cycleCount(List<Integer> partition, int n) {
+        int cc = factorialInt(n);
+        Map<Integer, Integer> counter = new HashMap<>();
+
+        for (Integer p : partition) {
+            counter.put(p, counter.getOrDefault(p, 0) + 1);
+        }
+
+        for (Map.Entry<Integer, Integer> entry : counter.entrySet()) {
+            int a = entry.getKey();
+            int b = entry.getValue();
+            cc /= (int) Math.pow(a, b) * factorialInt(b);
+        }
+        return cc;
+    }
+
+    public static BigInteger getSymmetries(int w, int h) {
+        return factorial(w).multiply(factorial(h));
+    }
+
 }
